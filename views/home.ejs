@@ -3,26 +3,30 @@
 
     <style>
         
-        #tutorContent{
+        #indexContent{
             margin: 30px auto;
-            width: 50rem;
+            width: 100%;
         }
         #form-data{
           margin: auto;
           
         }
+        #wrapper{
+          margin: 0 10px;
+        }
         @media (min-width: 768px) {
             #form-data{
+              width: 30rem;
+            }
+            #table_div{
               width: 35rem;
             }
         }
         @media (max-width: 768px) {
             #form-data{
-              width: 25rem;
+              width: 20rem;
             }
-            #table_id{
-             width: 90%;
-            }
+            
         }
         #hiddenLink{
           display: none;
@@ -34,9 +38,10 @@
 
 <body>
     
-        <div id="tutorContent">
+        <div id="indexContent">
+          <div id="wrapper">
             <center>
-                <h1 class="mb-4" style="font-size: 2rem;">Location Data</h1>
+                <h1 class="mb-4 mt-4" style="font-size: 2rem;">Location Data</h1>
             </center>
             <div id="form-data" class="mb-4" >
             <form  action="/" method="post">
@@ -60,6 +65,8 @@
               </form>
             </div>
 
+            <center>
+              <div id="table_div">
               <table class="table table-striped table-bordered mt-4 " id="table_id" >
                 <thead class="thead-dark">
                   <tr>
@@ -85,6 +92,9 @@
                   <% } %>
                 </tbody>
               </table>
+              </div>
+              </center>
+              </div>
         </div>
 
     <script>
