@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 
 const Details = require('../models/detail')
 
-const mongoCollectionId = '600ee450ff318ed7396c1c52'
+const mongoCollectionId = '600efc29b86eea65b21103c3'
+
+// const mongoCollectionId = '600ee450ff318ed7396c1c52'
 
 exports.getIndex = (req, res, next) => {
   Details.findOne({ _id: mongoCollectionId }, function (err, data) {
@@ -41,11 +43,10 @@ exports.postIndex = (req, res, next) => {
 exports.postDeleteData = (req, res, next) => {
   const dataId = req.body.listId
   
-  Details.findByIdAndUpdate('600ee450ff318ed7396c1c52', {
+  Details.findByIdAndUpdate(mongoCollectionId, {
     $pull: { details: { _id: dataId } },
   })
     .then((data) => {
-      
       res.redirect('/')
     })
     .catch((err) => {
