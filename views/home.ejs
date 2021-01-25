@@ -1,0 +1,132 @@
+<%- include('./includes/head.ejs') %>
+
+
+    <style>
+        
+        #tutorContent{
+            margin: 30px auto;
+            width: 50rem;
+        }
+        #form-data{
+          margin: auto;
+          
+        }
+        @media (min-width: 768px) {
+            #form-data{
+              width: 35rem;
+            }
+        }
+        @media (max-width: 768px) {
+            #form-data{
+              width: 25rem;
+            }
+            #table_id{
+             width: 90%;
+            }
+        }
+        #hiddenLink{
+          display: none;
+        }
+    
+    </style>
+    
+</head>
+
+<body>
+    
+        <div id="tutorContent">
+            <center>
+                <h1 class="mb-4" style="font-size: 2rem;">Location Data</h1>
+            </center>
+            <div id="form-data" class="mb-4" >
+            <form  action="/" method="post">
+                
+                <div class="form-group ">
+                 <input type="text" class="form-control" name="name" placeholder="Enter Name" autocomplete="off"  required>
+               </div>
+                
+                <div class="form-group">
+                  <input type="text" class="form-control" name="location" placeholder="Enter Location" autocomplete="off"  required>
+                </div>
+                
+                <center>
+                    
+
+
+                <a type="submit" href="/" class="btn btn-lg btn-danger ">Cancel</a>
+                <button type="submit" id="btnUpload" class="btn btn-lg btn-success ml-2">Save</button>
+                </center>
+                
+              </form>
+            </div>
+
+              <table class="table table-striped table-bordered mt-4 " id="table_id" >
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%for (list of lists) { %>
+                  <tr class="trHover" >
+                    <td scope="row"><%= list.name %></td>
+                    <td scope="row"><%= list.location %></td>
+                    <td style="text-align:center" id="td-<%= list._id %>">
+
+                      <form id="<%= list._id %>" >
+                        <input type="hidden" value="<%= list._id %>" name="listId">
+                        
+                      </form> 
+                        <button class="btn btn-danger" onclick="confirmDelete(this)" ><i class="fas fa-trash"></i></button> 
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+        </div>
+
+    <script>
+        
+          function confirmDelete(a){
+            console.log('clicked');
+            const parentId = a.parentElement.id;
+            const formId = document.getElementById(parentId).firstElementChild.id;
+
+              bootbox.confirm({
+                  title: "Delete this data?",
+                  message: "Do you want to delete this data now? This cannot be undone.",
+                  buttons: {
+                      cancel: {
+                          label: '<i class="fa fa-times"></i> Cancel'
+                      },
+                      confirm: {
+                          label: '<i class="fa fa-check"></i> Delete'
+                      }
+                  },
+                  callback: function (result) {
+                      if(result){;
+                          const form = document.getElementById(formId)
+                          form.action = "/delete";
+                          form.method = "POST";
+                          form.submit();
+                      } else {
+                          location.reload('/')
+                      }
+      
+                  }
+              });
+          }
+      
+          
+          </script>    
+    
+    <script>
+      $(document).ready( function () {
+              $('#table_id').DataTable();
+      });
+    </script>
+
+
+<%- include('./includes/end.ejs') %>
